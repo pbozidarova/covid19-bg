@@ -5,6 +5,7 @@ pipeline {
   }
   environment {
     DOCKER_HUB_CREDS = credentials('pbozidarova-docker-hub')
+    AWS_CREDS = credentials('pbozidarova-aws')
   }
   stages {
     stage('Tooling versions') {
@@ -15,12 +16,18 @@ pipeline {
         '''
       }
     }
-
     stage('Build') {
       steps {
         sh 'docker context use default'
         sh 'docker-compose build'
         sh 'docker-compose push'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh 'docker context use myecscontext'
+        sh 'docker compose up'
+        sh 'docker compose ps --format json'
       }
     }
   }
