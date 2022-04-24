@@ -1,9 +1,5 @@
 pipeline {
   agent any
-  environment {
-    DOCKER_HUB_CREDS = credentials('pbozidarova-docker-hub')
-    AWS_CREDS = credentials('pbozidarova-aws')
-  }
   stages {
     stage('Tooling versions') {
       steps {
