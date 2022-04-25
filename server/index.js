@@ -38,10 +38,6 @@ const redisClient = redis.createClient({
 const redisPublisher = redisClient.duplicate();
 
 //Express route handlers
-app.get('/', (req, res) => {
-    res.send('Hi');
-});
-
 app.get('/resource', async (req, res) => {
     let resource_key = req.query.resource_key;
     let resourceUpdateDate = await pgClient.query('SELECT * FROM recency WHERE resource = ($1)', [resource_key]);
@@ -54,7 +50,7 @@ app.get('/resource/requested', async (req, res) => {
     let resourceUpdateDate = await pgClient.query('SELECT * FROM recency WHERE resource = ($1)', [resource_key]);
 
     res.send(resourceUpdateDate.rows)
-})
+});
 
 app.post('/resource/requested', async (req, res) => {
     let resource_key = req.body.resource_key;
