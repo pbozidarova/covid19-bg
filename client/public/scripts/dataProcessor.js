@@ -177,7 +177,9 @@ export const dataProcessor = {
         } else {
             let indexOfDatasetToRemove = labels.indexOf(dataset);
             datasets[0].data.splice(indexOfDatasetToRemove, 1);
-            labels = labels.filter(lbl => lbl != dataset)
+            console.log(labels)
+            labels.splice(indexOfDatasetToRemove, 1);
+            console.log(labels)
         }
 
         return { labels, datasets };

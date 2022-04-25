@@ -45,8 +45,10 @@ label,
 
 .container {
   /* padding-top: 1em; */
-  display: grid;
+  /* display: grid; */
   /* grid-template-rows: 2fr 1fr 1fr; */
+  display: flex;
+  flex-direction: column;
   width: 90%;
   margin: 4em auto;
   padding-left: 3em;
@@ -122,8 +124,8 @@ footer p {
 }
 
 .graph-controls {
-  display: grid;
-  grid-template-columns: max-content 1fr;
+  /* display: grid;
+  grid-template-columns: max-content 1fr; */
 }
 
 .button-style {

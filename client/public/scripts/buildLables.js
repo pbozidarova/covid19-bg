@@ -11,7 +11,7 @@ export let chartVar = dynamicChartsService.chart('line');
 const {
     mainCriteriaDOM,
     datasetCriteriaDOM,
-    graphTypeOptions,
+    // graphTypeOptions,
     selectedDatasetsDOM,
     selectedResourseTitleDom,
     selectedResourseDOM, graphSectionDOM, notSelectedResoursesDOM, resourceTitlesDOM } = htmlSelectors;
@@ -36,7 +36,7 @@ Object.keys(resourceFactory).forEach(group => {
         divElement.appendChild(divOptionElement);
 
         inputElement.addEventListener('click', async () => {
-            graphTypeOptions().value = resource.graphType
+            // graphTypeOptions().value = resource.graphType
 
             chartVar.destroy()
             chartVar = dynamicChartsService.chart(resource.graphType);
@@ -44,6 +44,8 @@ Object.keys(resourceFactory).forEach(group => {
             graphSectionDOM()?.classList.add('hidden')
 
             if (inputElement.checked) {
+                graphSectionDOM()?.classList.remove('hidden')
+
                 inputElement.parentNode.parentNode.className = 'centered';
                 [...notSelectedResoursesDOM(), ...resourceTitlesDOM()].forEach(domElement => domElement.className = 'hidden');
                 selectedResourseTitleDom().className = ''
@@ -56,7 +58,6 @@ Object.keys(resourceFactory).forEach(group => {
                 await buildDatasetCheckboxes(resource);
                 console.log("Completed")
 
-                graphSectionDOM()?.classList.remove('hidden')
             } else {
                 datasetCriteriaDOM().textContent = '';
                 inputElement.parentNode.parentNode.className = '';
@@ -68,7 +69,7 @@ Object.keys(resourceFactory).forEach(group => {
 
 //Building the datasets based on the chosen resource
 async function buildDatasetCheckboxes(resource) {
-    let divDisplayClass = resource.id !== 'byRegion' ? 'two-column-grid' : 'four-column-grid';
+    let divDisplayClass = 'two-column-grid';
     datasetCriteriaDOM().classList.add(divDisplayClass);
 
     let checkboxes = resource.graphType === 'pie'
@@ -78,7 +79,7 @@ async function buildDatasetCheckboxes(resource) {
     checkboxes.forEach(dataset => {
         let inputElement = createInputElement('dataset', dataset, dataset);
         inputElement.addEventListener('click', async () => {
-            const datasetDetails = selectedDatasetsDOM().length > 0 && await dataProcessor.loadDatasets(dataset, resource.graphType, inputElement.checked);
+            const datasetDetails = selectedDatasetsDOM().length > 0 && await dataProcessor.loadDatasets(dataset, inputElement.checked);
 
             chartVar.data.labels = datasetDetails?.labels || [];
             chartVar.data.datasets = datasetDetails.datasets || []

@@ -43,5 +43,5 @@ export const htmlSelectors = {
     sliderContainerDOM: () => document.querySelector('.slider-container'),
     sliderValuesDOM: () => document.querySelector('.values'),
 
-    graphTypeOptions: () => document.getElementById('graphType'),
+    // graphTypeOptions: () => document.getElementById('graphType'),
 }
