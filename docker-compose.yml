@@ -20,9 +20,6 @@ services:
     build: 
       dockerfile: Dockerfile
       context: './server' # Telling docker to use the contents of the specified path
-    volumes:
-      - /app/node_modules # Teliing docker not to overwrite
-      - ./server:/app 
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
@@ -36,17 +33,10 @@ services:
     build:
       dockerfile: Dockerfile
       context: './client'
-    volumes:
-      - /app/node_modules
-      - ./client:/app
-      - ./client/node_modules:/app/public/node_modules
   worker:
     build:
       dockerfile: Dockerfile.dev
       context: './worker'
-    volumes:
-      - /app/node_modules
-      - ./worker:/app
     environment: 
       - REDIS_HOST=redis
       - REDIS_PORT=6379
