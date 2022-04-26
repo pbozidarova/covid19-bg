@@ -1,8 +1,7 @@
 import { apiService } from "./Api/apiService.js";
 import { chartVar } from "./buildLables.js";
-import { isRegion } from "./tools.js";
 import { htmlSelectors } from "./Dom/selectors.js";
-import { regionInformation } from "./tools.js";
+import { regionInformation } from "./Constants/regionInformation.js";
 import { bg, eng } from "./Constants/lang.js";
 
 const { displayValueOneDOM, displayValueTwoDOM, selectedResourseDOM } = htmlSelectors;
@@ -23,7 +22,6 @@ export const dataProcessor = {
         }
         const { datasets, criteria } = result;
 
-        console.log(datasets)
         datasets.forEach(apiService.createDataset);
         apiService.updateResourceRequestedOn();
     },
@@ -45,8 +43,6 @@ export const dataProcessor = {
                 data: unsortedDatasetArray
             });
         })
-
-        console.log(arrayDatasetObjects)
 
         return { datasets: arrayDatasetObjects };
     },
@@ -129,7 +125,7 @@ export const dataProcessor = {
         const regionCode = dataset?.split('_')[0];
         const sickSpecifier = dataset?.split('_')[1];
 
-        let label = isRegion(dataset)
+        let label = dataset?.split('_')[1] //checking if it is a region
             ? `${regionInformation[regionCode].nameBG} ${lang.utilityString[sickSpecifier]}`
             : dataset
 

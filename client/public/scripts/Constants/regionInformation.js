@@ -1,4 +1,4 @@
-import { htmlSelectors } from './Dom/selectors.js'
+import { htmlSelectors } from '../Dom/selectors.js'
 
 export const regionInformation = {
     'BG': { nameEng: 'Bulgaria', nameBG: 'България', population: 6951482 },
@@ -64,20 +64,3 @@ export const regionObjMapping = {
     'JAM': { regionName: 'Ямбол', regionPopulation: 117335 },
 }
 
-function handleError(err) {
-    htmlSelectors.notifyDiv().innerText = notifications.fetchFromOpenDBError;
-}
-
-export function isRegion(value) {
-    return value.split('_')[1];
-}
-
-export function calculate100k(value, reg) {
-    // ( number / population ) = (return Val / 100k)
-
-    return Math.round(value * 100000 / regionObjMapping[regionKey(reg)].regionPopulation)
-}
-
-export const isInRange = (date) => {
-    return new Date(htmlSelectors.displayValueOneDOM().innerText) <= date && new Date(htmlSelectors.displayValueTwoDOM().innerText) >= date;
-}

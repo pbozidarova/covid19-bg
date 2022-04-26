@@ -27,6 +27,8 @@ export const htmlSelectors = {
     selectedDatasetsDOM: () => Array.from(document.querySelectorAll('input[name="dataset"]:checked')),
     datasetCriteriaDOM: () => document.querySelector('.dataset-criteria'),
 
+    informDOM: () => document.getElementById('inform'),
+
     notifyDiv: () => document.getElementById('notify'),
     notifDates: () => document.getElementById('notif-dates'),
     notifStat: () => document.getElementById('notif-stat'),

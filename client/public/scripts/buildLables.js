@@ -1,6 +1,6 @@
 import { agregateResourceData, resourceFactory } from "./Constants/resourceFactory.js";
 import { htmlSelectors } from "./Dom/selectors.js";
-import { regionInformation } from "./tools.js";
+import { regionInformation } from "./Constants/regionInformation.js";
 import { dynamicChartsService } from './Chart/chartService.js'
 import { dataProcessor } from "./dataProcessor.js";
 import { apiService } from './Api/apiService.js';
@@ -14,7 +14,11 @@ const {
     // graphTypeOptions,
     selectedDatasetsDOM,
     selectedResourseTitleDom,
-    selectedResourseDOM, graphSectionDOM, notSelectedResoursesDOM, resourceTitlesDOM } = htmlSelectors;
+    selectedResourseDOM,
+    graphSectionDOM,
+    notSelectedResoursesDOM,
+    informDOM,
+    resourceTitlesDOM } = htmlSelectors;
 
 let lang = bg ? bg : eng;
 
@@ -51,12 +55,14 @@ Object.keys(resourceFactory).forEach(group => {
                 selectedResourseTitleDom().className = ''
 
                 console.log("Please wait")
+                informDOM().className = 'full-screen'
 
                 if (await isTheDataDueForUpdate()) {
                     await dataProcessor.processAnUpdate();
                 }
                 await buildDatasetCheckboxes(resource);
                 console.log("Completed")
+                informDOM().className = 'hidden'
 
             } else {
                 datasetCriteriaDOM().textContent = '';
